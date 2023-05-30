@@ -1,4 +1,4 @@
-
+#include <maxmod9.h>
 #include <stdio.h>
 #include <time.h>
 
@@ -7,9 +7,14 @@
 
 #include <nf_lib.h>
 
+#include "soundbank.h"
+
+
 int main(int argc, char **argv)
 {
-    
+    consoleDemoInit();
+
+
 
     // Prepare a NitroFS initialization screen
     NF_Set2D(0, 0);
@@ -22,6 +27,15 @@ int main(int argc, char **argv)
     // Initialize NitroFS and set it as the root folder of the filesystem
     nitroFSInit(NULL);
     NF_SetRootFolder("NITROFS");
+    
+    mmInitDefault( "nitro:/soundbank.bin" );
+
+	
+	// load the module
+	mmLoad( MOD_MUSIC );
+
+	// Start playing module
+	mmStart( MOD_MUSIC, MM_PLAY_LOOP );
 
     // Initialize 2D engine in both screens and use mode 0
     NF_Set2D(0, 0);

@@ -1,5 +1,6 @@
 main.o: C:/devkitpro/nflib/ssbds/source/main.c \
- C:/devkitPro/libnds/include/nds.h \
+ C:/devkitPro/libnds/include/maxmod9.h \
+ C:/devkitPro/libnds/include/mm_types.h C:/devkitPro/libnds/include/nds.h \
  C:/devkitPro/libnds/include/nds/libversion.h \
  C:/devkitPro/libnds/include/nds/ndstypes.h \
  C:/devkitPro/libnds/include/nds/bios.h \
@@ -75,7 +76,10 @@ main.o: C:/devkitpro/nflib/ssbds/source/main.c \
  C:/devkitPro/nflib/include/nf_sprite3d.h \
  C:/devkitPro/nflib/include/nf_text16.h \
  C:/devkitPro/nflib/include/nf_text.h \
- C:/devkitPro/nflib/include/nf_tiledbg.h
+ C:/devkitPro/nflib/include/nf_tiledbg.h \
+ C:/devkitpro/nflib/ssbds/build/soundbank.h
+C:/devkitPro/libnds/include/maxmod9.h:
+C:/devkitPro/libnds/include/mm_types.h:
 C:/devkitPro/libnds/include/nds.h:
 C:/devkitPro/libnds/include/nds/libversion.h:
 C:/devkitPro/libnds/include/nds/ndstypes.h:
@@ -154,3 +158,4 @@ C:/devkitPro/nflib/include/nf_sprite3d.h:
 C:/devkitPro/nflib/include/nf_text16.h:
 C:/devkitPro/nflib/include/nf_text.h:
 C:/devkitPro/nflib/include/nf_tiledbg.h:
+C:/devkitpro/nflib/ssbds/build/soundbank.h:

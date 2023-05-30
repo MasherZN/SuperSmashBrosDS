@@ -7,9 +7,9 @@ $(error "Please set DEVKITARM in your environment. export DEVKITARM=<path to>dev
 endif
 
 # These set the information text in the nds file
-GAME_TITLE     := Smash Bros. DS
+GAME_TITLE     := Super Smash Bros. DS
 GAME_SUBTITLE1 := MasherZN
-GAME_SUBTITLE2 := 2023
+GAME_SUBTITLE2 := v0.0.1
 
 include $(DEVKITARM)/ds_rules
 
@@ -30,8 +30,9 @@ SOURCES  := source
 INCLUDES := include
 DATA     := data
 GRAPHICS :=
-AUDIO    :=
+AUDIO    := maxmod_music
 ICON     :=
+
 
 # specify a directory which contains the nitro filesystem
 # this is relative to the Makefile
