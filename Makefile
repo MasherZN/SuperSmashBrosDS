@@ -8,9 +8,8 @@ endif
 
 # These set the information text in the nds file
 GAME_TITLE     := Super Smash Bros. DS
-GAME_SUBTITLE1 := MasherZN
-GAME_SUBTITLE2 := v0.0.1
-
+GAME_SUBTITLE1 := Masherzn
+GAME_SUBTITLE2 := v0.0.0.1
 include $(DEVKITARM)/ds_rules
 
 #---------------------------------------------------------------------------------
@@ -30,9 +29,8 @@ SOURCES  := source
 INCLUDES := include
 DATA     := data
 GRAPHICS :=
-AUDIO    := maxmod_music
+AUDIO    := music
 ICON     :=
-
 
 # specify a directory which contains the nitro filesystem
 # this is relative to the Makefile
