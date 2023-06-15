@@ -32,7 +32,33 @@ int main(int argc, char **argv)
    
    	// load the module
 	mmLoad( MOD_BB );
-
+    mmLoadEffect( SFX_SHON );
+    mmLoadEffect( SFX_MARTAUNT );
+    mmLoadEffect( SFX_SEMARTAUNT );
+    
+     mm_sound_effect semartaunt = {
+		{ SFX_SEMARTAUNT } ,			// id
+		(int)(1.0f * (1<<10)),	// rate
+		0,		// handle
+		255,	// volume
+		0,		// panning
+	};
+	
+     mm_sound_effect martaunt = {
+		{ SFX_MARTAUNT } ,			// id
+		(int)(1.0f * (1<<10)),	// rate
+		0,		// handle
+		255,	// volume
+		0,		// panning
+	};
+    
+    mm_sound_effect shon = {
+		{ SFX_SHON } ,			// id
+		(int)(1.0f * (1<<10)),	// rate
+		0,		// handle
+		255,	// volume
+		0,		// panning
+	};
 	// Start playing module
 	mmStart( MOD_BB, MM_PLAY_LOOP );
 
@@ -60,6 +86,12 @@ int main(int argc, char **argv)
     NF_LoadSpritePal("sprite/personaje", 0);
     NF_LoadSpriteGfx("sprite/shield", 2, 64, 64);
     NF_LoadSpritePal("sprite/shield", 2);
+    NF_LoadSpriteGfx("sprite/grab", 3, 64, 64);
+    NF_LoadSpritePal("sprite/grab", 3);
+    NF_LoadSpriteGfx("sprite/taunt", 4, 64, 64);
+    NF_LoadSpritePal("sprite/taunt", 4);
+      NF_LoadSpriteGfx("sprite/walk", 5, 64, 64);
+    NF_LoadSpritePal("sprite/walk", 5);
     NF_LoadSpriteGfx("sprite/p1show", 1, 64, 64);
     NF_LoadSpritePal("sprite/p1show", 1);
 
@@ -76,7 +108,12 @@ int main(int argc, char **argv)
     NF_VramSpritePal(0, 1, 1);
     NF_VramSpriteGfx(0, 2, 2, true); 
     NF_VramSpritePal(0, 2, 2);
-
+    NF_VramSpriteGfx(0, 3, 3, true); 
+    NF_VramSpritePal(0, 3, 3);  
+    NF_VramSpriteGfx(0, 4, 4, true); 
+    NF_VramSpritePal(0, 4, 4);  
+    NF_VramSpriteGfx(0, 5, 5, true); 
+    NF_VramSpritePal(0, 5, 5);  
     //NF_VramSpriteGfx(0, 1, 0, false); // Character: Keep unused frames in RAM
     //NF_VramSpritePal(0, 1, 0);
     NF_CreateSprite(0, 1, 1, 1, 100, 92);
@@ -84,14 +121,15 @@ int main(int argc, char **argv)
   
     NF_SpriteLayer(0, 0, 1);
     // Setup character sprite
-    s16 x = 100;
-    s16 y = 96;
+    s16 x = 120;
+    s16 y = 286;
     s16 pj_frame = 0;
     s16 pj_anim = 0;
     s16 spr_x = 0;
     s16 spr_y = 0;
     s16 bg_x = 0;
     s16 bg_y = 0;
+    s16 pj_anid =0;
     NF_LoadTextFont16("fnt/font16", "down", 256, 256, 0);
     NF_CreateTextLayer16(1, 0, 0, "down");
     NF_DefineTextColor(1, 0, 1, 1, 0, 0); // Blanco
@@ -102,14 +140,48 @@ int main(int argc, char **argv)
          
         // Animate character
         pj_anim++;
-        if (pj_anim > 5)
+        if (pj_anim >5 && pj_anid==0)
         {
             pj_anim = 0;
             pj_frame ++;
+            
             if (pj_frame > 7)
                 pj_frame = 0;
             NF_SpriteFrame(0, 0, pj_frame);
-        }
+        } 
+           if (pj_anim >3 && pj_anid==1)
+        {
+        	
+            pj_anim = 0;
+            pj_frame ++;
+            if (pj_frame >7)
+                pj_frame = 0;
+            NF_SpriteFrame(0, 3, pj_frame);
+            } 
+            
+               if (pj_anim >3 && pj_anid==3)
+        {
+        	
+            pj_anim = 0;
+            pj_frame ++;
+            if (pj_frame >13)
+                pj_frame = 0;
+            NF_SpriteFrame(0, 4, pj_frame);
+            } 
+                    if (pj_anim >4 && pj_anid==4)
+        {
+        	
+            pj_anim = 0;
+            pj_frame ++;
+            if (pj_frame >7)
+                pj_frame = 0;
+            NF_SpriteFrame(0, 5, pj_frame);
+            } 
+         
+         
+      
+        
+    
         
         scanKeys(); // Read keypad
         u16 keys = keysHeld(); // Keys currently pressed
@@ -122,20 +194,89 @@ int main(int argc, char **argv)
             x --;
         if (keys & KEY_RIGHT)
             x ++;
-            
-          if (keysHeld() & KEY_L)  {
-       
+            //shield ctr
+          if (keysDown() & KEY_R && pj_anid ==0)  {
+          	NF_DeleteSprite(0, 0);
+            pj_anid=2;
         NF_CreateSprite(0, 2, 2, 2, 100, 92);
-        pj_anim = 1;
+        mmEffectEx(&shon);
         }
-            
-        if (keysUp() & KEY_L)  {
-        
-        NF_DeleteSprite(0, 2);
+         //shield grab ctrl
+         if (keysDown() & KEY_A && pj_anid ==2)  {
+          	NF_DeleteSprite(0, 2);
+          	NF_CreateSprite(0, 3, 3, 3, 100, 92);
+            pj_anid=1;
+            pj_frame = 0;
         pj_anim = 0;
+        
+        
+        }
+            //shield up ctrl
+        if (keysUp() & KEY_R && pj_anid ==2)  {
+        NF_DeleteSprite(0, 2);
+        NF_CreateSprite(0, 0, 0, 0, 100, 92);
+        pj_anid=0;
+        pj_anim = 0;
+        
+        }
+         //grab ctrl
+        if (keysDown() & KEY_L && pj_anid==0)  {
+        NF_DeleteSprite(0, 0);
+        NF_CreateSprite(0, 3, 3, 3, 100, 92);
+        pj_anid =1;
+        pj_frame = 0;
+        pj_anim = 0;
+        
+        
+       }
+         //grab up ctrl
+         if (pj_anid==1 && pj_frame>=7)  {
+        NF_DeleteSprite(0, 3);
+        NF_CreateSprite(0, 0, 0, 0, 100, 92);
+        pj_anid=0;
+        pj_frame = 0;
+        }
+         //shiled grab up ctrl
+        if (keysDown() & KEY_R && pj_anid==1 && pj_frame>=7)  {
+        NF_DeleteSprite(0, 3);
+        NF_CreateSprite(0, 2, 2, 2, 100, 92);
+        pj_anid=2;
+        pj_frame = 0;
+        }
+        // taunt controller hold
+           if (keysDown() & KEY_SELECT && pj_anid==0)  {
+           	mmEffectEx(&martaunt);
+           	mmEffectEx(&semartaunt);
+        NF_DeleteSprite(0, 0);
+        pj_anid =3;
+        pj_frame = 0;
+        pj_anim = 0;
+        NF_CreateSprite(0, 4, 4, 4, 100, 92);
+        
+       }
+        //taunt controller release
+           if (pj_anid==3 && pj_frame>=13)  {
+        NF_DeleteSprite(0, 4);
+        NF_CreateSprite(0, 0, 0, 0, 100, 92);
+        pj_anid=0;
+        pj_frame = 0;
         }
         
+         if (keysDown() & KEY_RIGHT && pj_anid ==0)  {
+         	//walk controller
+          	NF_DeleteSprite(0, 0);
+            pj_anid=4;
+        NF_CreateSprite(0, 5, 5, 5, 100, 92);
+         
+        }
             
+               if (keysUp() & KEY_RIGHT && pj_anid ==4)  {
+         	//walk controller
+          	NF_DeleteSprite(0, 5);
+            pj_anid=0;
+        NF_CreateSprite(0, 0, 0, 0, 100, 92);
+         
+        }
        // Movement limits
         if (x < 0)
             x = 0;
@@ -161,11 +302,14 @@ int main(int argc, char **argv)
             bg_y = 320;
 
         // Sprite position
-        spr_x = (x - bg_x) - 4;
-        spr_y = (y - bg_y) - 4;
+        spr_x = (x - bg_x) - 1;
+        spr_y = (y - bg_y) - 1;
         NF_MoveSprite(0, 0, spr_x, spr_y);
         NF_MoveSprite(0, 1, spr_x, spr_y);
         NF_MoveSprite(0, 2, spr_x, spr_y);
+        NF_MoveSprite(0,3, spr_x, spr_y);
+        NF_MoveSprite(0,4, spr_x, spr_y);
+         NF_MoveSprite(0,5, spr_x, spr_y);
         
         NF_WriteText16(1, 0, 10,10, "MARIO");
        

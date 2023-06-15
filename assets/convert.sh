@@ -2,8 +2,11 @@
 
 grit bola.png -ftb -fh! -gTFF00FF -gt -gB8 -m!
 grit personaje.png -ftb -fh! -gTFF00FF -gt -gB8 -m!
+grit grab.png -ftb -fh! -gTFF00FF -gt -gB8 -m!
 grit shield.png -ftb -fh! -gTFF00FF -gt -gB8 -m!
 grit p1show.png -ftb -fh! -gTFF00FF -gt -gB8 -m!
+grit taunt.png -ftb -fh! -gTFF00FF -gt -gB8 -m!
+grit walk.png -ftb -fh! -gTFF00FF -gt -gB8 -m!
 for file in *.bin; do
     mv -- "$file" "${file%.bin}"
 done
