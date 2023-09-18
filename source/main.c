@@ -1,9 +1,4 @@
-// SPDX-License-Identifier: CC0-1.0
-//
-// SPDX-FileContributor: NightFox & Co., 2009-2011
-//
-// Sprite loading example
-// http://www.nightfoxandco.com
+
 #include <maxmod9.h>
 #include <stdio.h>
 #include <time.h>
@@ -13,320 +8,294 @@
 
 #include <nf_lib.h>
 #include "soundbank.h"
-int main(int argc, char **argv)
-{
-    // Set random seed based on the current time
-    srand(time(NULL));
+u32 startTime;
+s16 currentRoom = 0; // Variable para llevar un seguimiento de la sala actual
+
+	mm_sound_effect start = {
+            	{ SFX_START } ,			// id
+		(int)(1.0f * (1<<10)),	// rate
+		0,		// handle
+		255,	// volume
+		0,		// panning 
+		};  
+
+	mm_sound_effect cursor = {
+            	{ SFX_CURSOR } ,			// id
+		(int)(1.0f * (1<<10)),	// rate
+		0,		// handle
+		255,	// volume
+		0,		// panning 
+		};  
+		
+void changeRoom(int newRoom) {
+    // Lógica para cargar y configurar los fondos de la nueva sala
+    
+          mmLoadEffect( SFX_INTRO ); 
+            mmLoadEffect( SFX_CURSOR ); 
+               mmLoadEffect( SFX_START ); 
+            mm_sound_effect intro = {
+            	{ SFX_INTRO } ,			// id
+		(int)(1.0f * (1<<10)),	// rate
+		0,		// handle
+		255,	// volume
+		0,		// panning 
+		};
+	
+    switch (newRoom) {
+        case 0:
+            // Cargar y configurar los fondos para la sala 0
+            // Ejemplo:
+       
+            NF_LoadSpriteGfx("sprite/masher",0,32,32);
+            NF_LoadSpritePal("sprite/masher",0);
+            NF_Vram3dSpriteGfx(0, 0,false);
+            NF_Vram3dSpritePal(0, 0);
+            NF_Create3dSprite(0, 0, 0,112,80);
+            mmEffectEx(&intro); 
+			
+            break;
+        case 1:
+            // Cargar y configurar los fondos para la sala 1
+            // Ejemplo:
+         ;
+           
+            NF_Free3dSpriteGfx(0);
+            NF_Delete3dSprite(0);
+            NF_LoadTiledBg("bg/tittle_bglast", "bglast", 256, 256); 
+            NF_LoadTiledBg("bg/tittle_name", "logo", 256, 256); 
+            NF_LoadTiledBg("bg/tittle_move", "move", 256, 256); 
+            NF_LoadTiledBg("bg/tittleb_bg", "dbg", 256, 256);
+			NF_LoadTiledBg("bg/tittleb_press", "press", 256, 256);  
+			NF_LoadSpriteGfx("sprite/tittle_fade",9, 64, 64);
+			NF_LoadSpritePal("sprite/tittle_fade",9);
+            NF_CreateTiledBg(0, 3, "bglast");
+            NF_CreateTiledBg(0, 2, "logo");
+            NF_CreateTiledBg(0, 1, "move");
+            NF_CreateTiledBg(1, 2, "dbg");
+            NF_CreateTiledBg(1, 1, "press");
+            NF_Vram3dSpriteGfx(9, 9, true);
+            NF_Vram3dSpritePal(9, 9);
+            NF_Create3dSprite(9, 9, 9, 96, 64);
+            NF_Scale3dSprite(9,0,0);
+            
+            
+        
+            break;
+             case 2:
+            // Cargar y configurar los fondos para la sala 2
+            
+            NF_UnloadTiledBg("dbg");
+            NF_UnloadTiledBg("press");
+            NF_UnloadTiledBg("bglast");
+            NF_UnloadTiledBg("logo");
+            NF_UnloadTiledBg("move");
+            NF_LoadTiledBg("bg/bg_black", "black", 256, 256); 
+            NF_LoadTiledBg("bg/menu_bglast", "menulast", 256, 256); 
+            NF_LoadTiledBg("bg/menu_bg1", "menubg1", 256, 256); 
+            NF_LoadTiledBg("bg/menu_bg2", "menubg2", 256, 256); 
+            NF_CreateTiledBg(0, 3, "menulast");
+            NF_CreateTiledBg(0, 2, "menubg1");
+			NF_CreateTiledBg(0,1, "menubg2");
+				NF_CreateTiledBg(1,1, "black");
+           
+            NF_LoadSpriteGfx("sprite/menu_group1", 1, 64, 64);
+            NF_LoadSpriteGfx("sprite/menu_group2", 2, 64, 64);
+            NF_LoadSpriteGfx("sprite/menu_solo1",3, 64, 64);
+            NF_LoadSpriteGfx("sprite/menu_solo2",4, 64, 64);
+            NF_LoadSpriteGfx("sprite/menu_locked",5, 64, 64);
+            NF_LoadSpriteGfx("sprite/menu_vault",6,64, 64);
+            NF_LoadSpriteGfx("sprite/menu_options",7,64, 64);
+            NF_LoadSpriteGfx("sprite/menu_data",8,64, 64);
+          
+            NF_LoadSpritePal("sprite/menu_group1", 1);
+            NF_LoadSpritePal("sprite/menu_group2", 2);
+            NF_LoadSpritePal("sprite/menu_solo1",3);
+            NF_LoadSpritePal("sprite/menu_solo2",4);
+            NF_LoadSpritePal("sprite/menu_locked",5);
+            NF_LoadSpritePal("sprite/menu_vault",6);
+            NF_LoadSpritePal("sprite/menu_options",7);
+            NF_LoadSpritePal("sprite/menu_data",8);
+            
+              
+            NF_Vram3dSpriteGfx(1, 1, true);
+            NF_Vram3dSpritePal(1, 1);
+           
+            NF_Vram3dSpriteGfx(2, 2, true);
+            NF_Vram3dSpritePal(2, 2);
+           
+            NF_Vram3dSpriteGfx(3, 3, true);
+            NF_Vram3dSpritePal(3, 3);
+            
+            NF_Vram3dSpriteGfx(4, 4, true);
+            NF_Vram3dSpritePal(4, 4);
+           
+            NF_Vram3dSpriteGfx(5, 5, true);
+            NF_Vram3dSpritePal(5, 5);
+            
+            NF_Vram3dSpriteGfx(6, 6, true);
+            NF_Vram3dSpritePal(6, 6);
+           
+            NF_Vram3dSpriteGfx(7, 7, true);
+            NF_Vram3dSpritePal(7, 7);
+            
+            NF_Vram3dSpriteGfx(8, 8, true);
+            NF_Vram3dSpritePal(8, 8);
+            
+            NF_Create3dSprite(1, 1, 1, 13, 28);
+            NF_Create3dSprite(2, 2, 2, 76, 28);
+            NF_Create3dSprite(3, 3, 3, 123, 47);
+            NF_Create3dSprite(4, 4, 4, 187, 47);
+            NF_Create3dSprite(5, 5, 5, 14, 94);
+            NF_Create3dSprite(6, 6, 6, 77, 99);        
+            NF_Create3dSprite(7, 7, 7, 130, 99);
+            NF_Create3dSprite(8, 8, 8, 183, 99);
+          
+        
+           
+            
+            mmLoad( MOD_MENU1 );
+            mmStart( MOD_MENU1, MM_PLAY_LOOP );
+            NF_Free3dSpriteGfx(9);
+            NF_Delete3dSprite(9);
+            break;
+        // Agregar más casos para cada sala adicional
+        
+        default:
+            // Sala no válida, maneja el caso según sea necesario
+            break;
+    }
+    
+    currentRoom = newRoom; // Actualizar la sala actual
+   
+     NF_Sort3dSprites();
+     }
+
+
+int main(int argc, char **argv) {
+    // Inicializar Nintendo DS
+    consoleDemoInit();
+     
+
+    // Realiza un fundido gradual desde blanco a transparente
+
+
+    
+    // Realiza un fundido gradual desde blanco a transparente
+    // Velocidad negativa para desvanecer desde blanco a transparente
+
+     srand(time(NULL));
 
     // Prepare a NitroFS initialization screen
     NF_Set2D(0, 0);
     NF_Set2D(1, 0);
     consoleDemoInit();
+    startTime = clock();
     printf("\n    Loading...");
     swiWaitForVBlank();
+    NF_Update3dSpritesGfx();
 
     // Initialize NitroFS and set it as the root folder of the filesystem
     nitroFSInit(NULL);
     NF_SetRootFolder("NITROFS");
     mmInitDefault( "nitro:/soundbank.bin" );
    
-   	// load the module
-	mmLoad( MOD_BB );
-    mmLoadEffect( SFX_SHON );
-    mmLoadEffect( SFX_MARTAUNT );
-    mmLoadEffect( SFX_SEMARTAUNT );
     
-     mm_sound_effect semartaunt = {
-		{ SFX_SEMARTAUNT } ,			// id
-		(int)(1.0f * (1<<10)),	// rate
-		0,		// handle
-		255,	// volume
-		0,		// panning
-	};
-	
-     mm_sound_effect martaunt = {
-		{ SFX_MARTAUNT } ,			// id
-		(int)(1.0f * (1<<10)),	// rate
-		0,		// handle
-		255,	// volume
-		0,		// panning
-	};
-    
-    mm_sound_effect shon = {
-		{ SFX_SHON } ,			// id
-		(int)(1.0f * (1<<10)),	// rate
-		0,		// handle
-		255,	// volume
-		0,		// panning
-	};
-	// Start playing module
-	mmStart( MOD_BB, MM_PLAY_LOOP );
-
-    // Initialize 2D engine in both screens and use mode 0
-    NF_Set2D(0, 0);
+    NF_Set3D(0, 0);
     NF_Set2D(1, 0);
-
+    
     // Initialize tiled backgrounds system
     NF_InitTiledBgBuffers();    // Initialize storage buffers
     NF_InitTiledBgSys(0);       // Top screen
     NF_InitTiledBgSys(1);       // Bottom screen
-
-    // Initialize sprite system
-    NF_InitSpriteBuffers();     // Initialize storage buffers
-    NF_InitSpriteSys(0);        // Top screen
-    NF_InitSpriteSys(1);        // Bottom screen
-    NF_InitTextSys(1);
     
-    NF_LoadTiledBg("bg/bgdreamland", "capa_3", 256, 256);
-    NF_LoadTiledBg("bg/bg2", "capa_2", 512, 512);
-    NF_LoadTiledBg("bg/css", "css_1", 256, 256);
-
-    // Load sprite files from NitroFS
-    NF_LoadSpriteGfx("sprite/personaje", 0, 64, 64);
-    NF_LoadSpritePal("sprite/personaje", 0);
-    NF_LoadSpriteGfx("sprite/shield", 2, 64, 64);
-    NF_LoadSpritePal("sprite/shield", 2);
-    NF_LoadSpriteGfx("sprite/grab", 3, 64, 64);
-    NF_LoadSpritePal("sprite/grab", 3);
-    NF_LoadSpriteGfx("sprite/taunt", 4, 64, 64);
-    NF_LoadSpritePal("sprite/taunt", 4);
-      NF_LoadSpriteGfx("sprite/walk", 5, 64, 64);
-    NF_LoadSpritePal("sprite/walk", 5);
-    NF_LoadSpriteGfx("sprite/p1show", 1, 64, 64);
-    NF_LoadSpritePal("sprite/p1show", 1);
-
-
-    // Create bottom screen backgrounds
-    NF_CreateTiledBg(0, 3, "capa_3");
-    NF_CreateTiledBg(0, 2, "capa_2");
-    NF_CreateTiledBg(1, 3, "css_1");
-
-    // Transfer the required sprites to VRAM
-    NF_VramSpriteGfx(0, 0, 0, true); // Poniendo los sprites en la VRAM
-    NF_VramSpritePal(0, 0, 0);
-    NF_VramSpriteGfx(0, 1, 1, true); 
-    NF_VramSpritePal(0, 1, 1);
-    NF_VramSpriteGfx(0, 2, 2, true); 
-    NF_VramSpritePal(0, 2, 2);
-    NF_VramSpriteGfx(0, 3, 3, true); 
-    NF_VramSpritePal(0, 3, 3);  
-    NF_VramSpriteGfx(0, 4, 4, true); 
-    NF_VramSpritePal(0, 4, 4);  
-    NF_VramSpriteGfx(0, 5, 5, true); 
-    NF_VramSpritePal(0, 5, 5);  
-    //NF_VramSpriteGfx(0, 1, 0, false); // Character: Keep unused frames in RAM
-    //NF_VramSpritePal(0, 1, 0);
-    NF_CreateSprite(0, 1, 1, 1, 100, 92);
-    NF_CreateSprite(0, 0, 0, 0, 100, 92);
-  
-    NF_SpriteLayer(0, 0, 1);
-    // Setup character sprite
-    s16 x = 120;
-    s16 y = 286;
-    s16 pj_frame = 0;
-    s16 pj_anim = 0;
-    s16 spr_x = 0;
-    s16 spr_y = 0;
-    s16 bg_x = 0;
-    s16 bg_y = 0;
-    s16 pj_anid =0;
-    NF_LoadTextFont16("fnt/font16", "down", 256, 256, 0);
-    NF_CreateTextLayer16(1, 0, 0, "down");
-    NF_DefineTextColor(1, 0, 1, 1, 0, 0); // Blanco
+     NF_InitSpriteBuffers();     // Initialize storage buffers
+     NF_Init3dSpriteSys();
+     
+    s16 bgX = 0;
+    s16 fadeX = 0;
+    s16 fadeY = 0;
+    s16 titlestate =0;
+    s16 seconds=0;
+    mmLoad( MOD_MENU1 );
+    // Configurar la primera sala al iniciar el juego
+    changeRoom(0);
+     NF_Sort3dSprites();
+    consoleClear();
+   
     
 
-    while (1)
-    {
-         
-        // Animate character
-        pj_anim++;
-        if (pj_anim >5 && pj_anid==0)
-        {
-            pj_anim = 0;
-            pj_frame ++;
-            
-            if (pj_frame > 7)
-                pj_frame = 0;
-            NF_SpriteFrame(0, 0, pj_frame);
-        } 
-           if (pj_anim >3 && pj_anid==1)
-        {
+     //mmStart( MOD_MENU1, MM_PLAY_LOOP );
+    while (1) {
+    	
+     swiWaitForVBlank(); 
+     
+        if(currentRoom==1){
         	
-            pj_anim = 0;
-            pj_frame ++;
-            if (pj_frame >7)
-                pj_frame = 0;
-            NF_SpriteFrame(0, 3, pj_frame);
-            } 
-            
-               if (pj_anim >3 && pj_anid==3)
-        {
-        	
-            pj_anim = 0;
-            pj_frame ++;
-            if (pj_frame >13)
-                pj_frame = 0;
-            NF_SpriteFrame(0, 4, pj_frame);
-            } 
-                    if (pj_anim >4 && pj_anid==4)
-        {
-        	
-            pj_anim = 0;
-            pj_frame ++;
-            if (pj_frame >7)
-                pj_frame = 0;
-            NF_SpriteFrame(0, 5, pj_frame);
-            } 
-         
-         
+        bgX += 1; // Mover el fondo 1 píxel a la derecha
+        fadeX+= 1;
+        fadeY+= 1;
+        seconds+= 1;
+         // Mover el fondo 1 píxel a la izquierda
+        
+    	  NF_ScrollBg(0,1, bgX,0); 
+    	   
+		}
       
+	
+    	   scanKeys(); 
+        // Ejemplo: Cambiar a la sala 1 cuando se presione un botón
+        if (keysDown() & KEY_UP) {
+             mmEffectEx(&cursor); 
+        }    
+		
+		 if (keysDown() & KEY_DOWN) {
+             mmEffectEx(&cursor); 
+        }     
         
-    
+		 if (keysDown() & KEY_RIGHT) {
+             mmEffectEx(&cursor); 
+        }     
         
-        scanKeys(); // Read keypad
-        u16 keys = keysHeld(); // Keys currently pressed
-
-        if (keys & KEY_UP)
-            y --;
-        if (keys & KEY_DOWN)
-            y ++;
-        if (keys & KEY_LEFT)
-            x --;
-        if (keys & KEY_RIGHT)
-            x ++;
-            //shield ctr
-          if (keysDown() & KEY_R && pj_anid ==0)  {
-          	NF_DeleteSprite(0, 0);
-            pj_anid=2;
-        NF_CreateSprite(0, 2, 2, 2, 100, 92);
-        mmEffectEx(&shon);
-        }
-         //shield grab ctrl
-         if (keysDown() & KEY_A && pj_anid ==2)  {
-          	NF_DeleteSprite(0, 2);
-          	NF_CreateSprite(0, 3, 3, 3, 100, 92);
-            pj_anid=1;
-            pj_frame = 0;
-        pj_anim = 0;
-        
-        
-        }
-            //shield up ctrl
-        if (keysUp() & KEY_R && pj_anid ==2)  {
-        NF_DeleteSprite(0, 2);
-        NF_CreateSprite(0, 0, 0, 0, 100, 92);
-        pj_anid=0;
-        pj_anim = 0;
-        
-        }
-         //grab ctrl
-        if (keysDown() & KEY_L && pj_anid==0)  {
-        NF_DeleteSprite(0, 0);
-        NF_CreateSprite(0, 3, 3, 3, 100, 92);
-        pj_anid =1;
-        pj_frame = 0;
-        pj_anim = 0;
-        
-        
-       }
-         //grab up ctrl
-         if (pj_anid==1 && pj_frame>=7)  {
-        NF_DeleteSprite(0, 3);
-        NF_CreateSprite(0, 0, 0, 0, 100, 92);
-        pj_anid=0;
-        pj_frame = 0;
-        }
-         //shiled grab up ctrl
-        if (keysDown() & KEY_R && pj_anid==1 && pj_frame>=7)  {
-        NF_DeleteSprite(0, 3);
-        NF_CreateSprite(0, 2, 2, 2, 100, 92);
-        pj_anid=2;
-        pj_frame = 0;
-        }
-        // taunt controller hold
-           if (keysDown() & KEY_SELECT && pj_anid==0)  {
-           	mmEffectEx(&martaunt);
-           	mmEffectEx(&semartaunt);
-        NF_DeleteSprite(0, 0);
-        pj_anid =3;
-        pj_frame = 0;
-        pj_anim = 0;
-        NF_CreateSprite(0, 4, 4, 4, 100, 92);
-        
-       }
-        //taunt controller release
-           if (pj_anid==3 && pj_frame>=13)  {
-        NF_DeleteSprite(0, 4);
-        NF_CreateSprite(0, 0, 0, 0, 100, 92);
-        pj_anid=0;
-        pj_frame = 0;
-        }
-        
-         if (keysDown() & KEY_RIGHT && pj_anid ==0)  {
-         	//walk controller
-          	NF_DeleteSprite(0, 0);
-            pj_anid=4;
-        NF_CreateSprite(0, 5, 5, 5, 100, 92);
+		 if (keysDown() & KEY_LEFT) {
+             mmEffectEx(&cursor); 
+        }     
          
-        }
+         	 if (keysDown() & KEY_START && currentRoom==1 && titlestate==0) {
+         	fadeX= 0;
+            fadeY= 0;
+            seconds=0;
+         	titlestate=1;
+            mmEffectEx(&start); 
             
-               if (keysUp() & KEY_RIGHT && pj_anid ==4)  {
-         	//walk controller
-          	NF_DeleteSprite(0, 5);
-            pj_anid=0;
-        NF_CreateSprite(0, 0, 0, 0, 100, 92);
+
+        }     
+          	 if (titlestate==1 && currentRoom==1) {
+            NF_Scale3dSprite(9,fadeX*30,fadeY*30);
+
+        }     
          
+          	 if (seconds>=30 && titlestate==1) {
+           changeRoom(currentRoom+1);
+
+        }     
+         
+        
+        if (keysDown() & KEY_A) {
+            changeRoom(currentRoom+1);
+        }     
+       /* if (keysDown() & KEY_B) {
+            changeRoom(currentRoom-1);
         }
-       // Movement limits
-        if (x < 0)
-            x = 0;
-        if (x > 511)
-            x = 511;
-
-        if (y < 0)
-            y = 0;
-        if (y > 768)
-            y = 768;
-
-        // Background position
-        bg_x = x - 100;
-        if (bg_x < 0)
-            bg_x = 0;
-        if (bg_x > 256)
-            bg_x = 256;
-
-        bg_y = y - 95;
-        if (bg_y < 0)
-            bg_y = 0;
-        if (bg_y > 320)
-            bg_y = 320;
-
-        // Sprite position
-        spr_x = (x - bg_x) - 1;
-        spr_y = (y - bg_y) - 1;
-        NF_MoveSprite(0, 0, spr_x, spr_y);
-        NF_MoveSprite(0, 1, spr_x, spr_y);
-        NF_MoveSprite(0, 2, spr_x, spr_y);
-        NF_MoveSprite(0,3, spr_x, spr_y);
-        NF_MoveSprite(0,4, spr_x, spr_y);
-         NF_MoveSprite(0,5, spr_x, spr_y);
-        
-        NF_WriteText16(1, 0, 10,10, "MARIO");
+         if (keysDown() & KEY_START && currentRoom==1) {
+             
+        }
+       */   NF_Draw3dSprites();
+        // Tell the GPU to draw the scene and wait until it's done
+        glFlush(0);
+        // Obtener el tiempo actual en milisegundos
+       swiWaitForVBlank();
        
-
-        // Update OAM array
-        NF_SpriteOamSet(0);
-        NF_SpriteOamSet(1);
-
-        // Wait for the screen refresh
-        swiWaitForVBlank();
-
-        // Update OAM
-        oamUpdate(&oamMain);
-        oamUpdate(&oamSub);
-        
-        NF_ScrollBg(0, 2, bg_x, bg_y);
     }
-
+    
     return 0;
 }

@@ -7,7 +7,7 @@ $(error "Please set DEVKITARM in your environment. export DEVKITARM=<path to>dev
 endif
 
 # These set the information text in the nds file
-GAME_TITLE     := Super Smash Bros. DS
+GAME_TITLE     := Super Smash Bros. Strike
 GAME_SUBTITLE1 := Masherzn
 GAME_SUBTITLE2 := v0.0.0.1
 include $(DEVKITARM)/ds_rules
