@@ -11,7 +11,7 @@
 u32 startTime;
 s16 currentRoom = 0; // Variable para llevar un seguimiento de la sala actual
 
-	mm_sound_effect start = {
+	mm_sound_effect start = {  
             	{ SFX_START } ,			// id
 		(int)(1.0f * (1<<10)),	// rate
 		0,		// handle
@@ -41,18 +41,19 @@ void changeRoom(int newRoom) {
 		0,		// panning 
 		};
 	
-    switch (newRoom) {
+    switch (newRoom) { 
         case 0:
             // Cargar y configurar los fondos para la sala 0
             // Ejemplo:
-       
+            NF_CreateTextLayer(0,1,0,"outline");  
+            NF_CreateTextLayer(1,0,0,"outline");  
             NF_LoadSpriteGfx("sprite/masher",0,32,32);
             NF_LoadSpritePal("sprite/masher",0);
             NF_Vram3dSpriteGfx(0, 0,false);
             NF_Vram3dSpritePal(0, 0);
             NF_Create3dSprite(0, 0, 0,112,80);
             mmEffectEx(&intro); 
-			
+			NF_WriteText(0,1, 12, 15, "masherzn"); 
             break;
         case 1:
             // Cargar y configurar los fondos para la sala 1
@@ -84,11 +85,14 @@ void changeRoom(int newRoom) {
              case 2:
             // Cargar y configurar los fondos para la sala 2
             
+            
             NF_UnloadTiledBg("dbg");
             NF_UnloadTiledBg("press");
             NF_UnloadTiledBg("bglast");
             NF_UnloadTiledBg("logo");
             NF_UnloadTiledBg("move");
+            
+        
             NF_LoadTiledBg("bg/bg_black", "black", 256, 256); 
             NF_LoadTiledBg("bg/menu_bglast", "menulast", 256, 256); 
             NF_LoadTiledBg("bg/menu_bg1", "menubg1", 256, 256); 
@@ -96,7 +100,7 @@ void changeRoom(int newRoom) {
             NF_CreateTiledBg(0, 3, "menulast");
             NF_CreateTiledBg(0, 2, "menubg1");
 			NF_CreateTiledBg(0,1, "menubg2");
-				NF_CreateTiledBg(1,1, "black");
+			//NF_CreateTiledBg(0,1, "black");
            
             NF_LoadSpriteGfx("sprite/menu_group1", 1, 64, 64);
             NF_LoadSpriteGfx("sprite/menu_group2", 2, 64, 64);
@@ -141,6 +145,7 @@ void changeRoom(int newRoom) {
             NF_Vram3dSpriteGfx(8, 8, true);
             NF_Vram3dSpritePal(8, 8);
             
+          
             NF_Create3dSprite(1, 1, 1, 13, 28);
             NF_Create3dSprite(2, 2, 2, 76, 28);
             NF_Create3dSprite(3, 3, 3, 123, 47);
@@ -149,7 +154,7 @@ void changeRoom(int newRoom) {
             NF_Create3dSprite(6, 6, 6, 77, 99);        
             NF_Create3dSprite(7, 7, 7, 130, 99);
             NF_Create3dSprite(8, 8, 8, 183, 99);
-          
+           
         
            
             
@@ -157,6 +162,7 @@ void changeRoom(int newRoom) {
             mmStart( MOD_MENU1, MM_PLAY_LOOP );
             NF_Free3dSpriteGfx(9);
             NF_Delete3dSprite(9);
+            
             break;
         // Agregar más casos para cada sala adicional
         
@@ -175,19 +181,15 @@ int main(int argc, char **argv) {
     // Inicializar Nintendo DS
     consoleDemoInit();
      
-
-    // Realiza un fundido gradual desde blanco a transparente
-
-
-    
-    // Realiza un fundido gradual desde blanco a transparente
-    // Velocidad negativa para desvanecer desde blanco a transparente
-
      srand(time(NULL));
 
     // Prepare a NitroFS initialization screen
     NF_Set2D(0, 0);
     NF_Set2D(1, 0);
+    
+    NF_Set3D(0, 0);
+    NF_Set2D(1, 0);
+    
     consoleDemoInit();
     startTime = clock();
     printf("\n    Loading...");
@@ -198,24 +200,35 @@ int main(int argc, char **argv) {
     nitroFSInit(NULL);
     NF_SetRootFolder("NITROFS");
     mmInitDefault( "nitro:/soundbank.bin" );
+    
+    
    
-    
-    NF_Set3D(0, 0);
-    NF_Set2D(1, 0);
-    
     // Initialize tiled backgrounds system
+    
     NF_InitTiledBgBuffers();    // Initialize storage buffers
     NF_InitTiledBgSys(0);       // Top screen
     NF_InitTiledBgSys(1);       // Bottom screen
     
+    NF_InitTextSys(0); 
+    NF_LoadTextFont("fnt/fontout","outline", 256,256,0);
      NF_InitSpriteBuffers();     // Initialize storage buffers
      NF_Init3dSpriteSys();
-     
+    char segundos[200];
     s16 bgX = 0;
     s16 fadeX = 0;
     s16 fadeY = 0;
     s16 titlestate =0;
     s16 seconds=0;
+    //indican donde comienza la posicion de las barras del menu principal
+    s16 mbgsY=-4;
+    s16 mbgsY2=4;
+    //main menu button hover variable
+    
+    //menu animations
+    s16 btn_frame = 0;
+    s16 btn_anim = 0;
+    s16 btn_anid =0;
+   
     mmLoad( MOD_MENU1 );
     // Configurar la primera sala al iniciar el juego
     changeRoom(0);
@@ -225,9 +238,54 @@ int main(int argc, char **argv) {
     
 
      //mmStart( MOD_MENU1, MM_PLAY_LOOP );
-    while (1) {
-    	
+    while (1) { 
+    	 NF_UpdateTextLayers();
      swiWaitForVBlank(); 
+     snprintf(segundos, sizeof(segundos), "Segundos: %d %d %d %d ", seconds,btn_anid,currentRoom,mbgsY2);
+     
+            NF_WriteText(1, 0, 1, 1, segundos);
+    
+       btn_anim++;
+        if (btn_anim >0.5 && btn_anid==0 && currentRoom>=2 )
+        {   
+            btn_anim = 0;
+            btn_frame ++;
+            
+            if (btn_frame > 7)
+                btn_frame = 7;
+            NF_Set3dSpriteFrame(1,btn_frame);
+            NF_Set3dSpriteFrame(2,btn_frame);
+        } 
+         if (btn_anim >0.5 && btn_anid==1 && currentRoom>=2 )
+        {   
+            btn_anim = 0;
+            btn_frame ++;
+            
+            if (btn_frame > 8)
+                btn_frame = 8;
+            NF_Set3dSpriteFrame(3,btn_frame);
+            NF_Set3dSpriteFrame(4,btn_frame);
+        } 
+        
+        
+        
+        
+        if(currentRoom==0){
+        	
+      
+        seconds+= 1;
+         // Mover el fondo 1 píxel a la izquierda
+        
+    
+    	   
+		}
+		
+		
+          	 if (seconds==50 && currentRoom==0) {
+           changeRoom(currentRoom+1);
+
+     
+     	}
      
         if(currentRoom==1){
         	
@@ -235,12 +293,20 @@ int main(int argc, char **argv) {
         fadeX+= 1;
         fadeY+= 1;
         seconds+= 1;
+       
          // Mover el fondo 1 píxel a la izquierda
         
-    	  NF_ScrollBg(0,1, bgX,0); 
-    	   
+    	  NF_ScrollBg(0,1, bgX,0);  
 		}
-      
+			 if (currentRoom==2) {
+		   mbgsY+=1;
+		   mbgsY2-=1;
+           NF_ScrollBg(0,1,0,mbgsY);  
+           NF_ScrollBg(0,2,0,mbgsY2);  
+          
+         }     
+            
+	
 	
     	   scanKeys(); 
         // Ejemplo: Cambiar a la sala 1 cuando se presione un botón
@@ -252,19 +318,24 @@ int main(int argc, char **argv) {
              mmEffectEx(&cursor); 
         }     
         
-		 if (keysDown() & KEY_RIGHT) {
+		 if (keysDown() & KEY_RIGHT && currentRoom==2) {
              mmEffectEx(&cursor); 
-        }     
+             btn_frame=0;
+             btn_anid++;
+        }  
+		  
         
-		 if (keysDown() & KEY_LEFT) {
+		 if (keysDown() & KEY_LEFT && currentRoom==2) {
              mmEffectEx(&cursor); 
+            btn_frame=0;
+             btn_anid--;
         }     
          
          	 if (keysDown() & KEY_START && currentRoom==1 && titlestate==0) {
+         	seconds=0; 	
          	fadeX= 0;
             fadeY= 0;
-            seconds=0;
-         	titlestate=1;
+            titlestate=1;
             mmEffectEx(&start); 
             
 
@@ -274,14 +345,39 @@ int main(int argc, char **argv) {
 
         }     
          
-          	 if (seconds>=30 && titlestate==1) {
-           changeRoom(currentRoom+1);
-
+          	 if (seconds==30 && titlestate==1) {
+           changeRoom(currentRoom=2); 
+           seconds=0;
+          
         }     
+        	 if (btn_anid!=0 && currentRoom==2) {
+            NF_Set3dSpriteFrame(1,0);
+            NF_Set3dSpriteFrame(2,0);
+         }    
+		 	 if (btn_anid!=1 && currentRoom==2) {
+            NF_Set3dSpriteFrame(3,0);
+            NF_Set3dSpriteFrame(4,0);
+         }     
+         	 if (mbgsY>=0 && currentRoom==2) {
+            
+            mbgsY=0;  
+             }
+              if (mbgsY2<=1 && currentRoom==2) {
+            
+            mbgsY2=1;  
+			
+             }
+            
+            
+            
+           
+
+         
+        
          
         
         if (keysDown() & KEY_A) {
-            changeRoom(currentRoom+1);
+            //changeRoom(currentRoom+1);
         }     
        /* if (keysDown() & KEY_B) {
             changeRoom(currentRoom-1);
@@ -294,7 +390,7 @@ int main(int argc, char **argv) {
         glFlush(0);
         // Obtener el tiempo actual en milisegundos
        swiWaitForVBlank();
-       
+        NF_Update3dSpritesGfx();
     }
     
     return 0;
