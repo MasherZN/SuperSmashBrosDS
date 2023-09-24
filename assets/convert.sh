@@ -84,6 +84,9 @@ grit css_backgroundtop.png -ftb -fh! -gTFF00FF -gt -gB8 -mR8 -mLs
 grit css_backgroundbottom.png -ftb -fh! -gTFF00FF -gt -gB8 -mR8 -mLs
 grit css_backgroundbottom2.png -ftb -fh! -gTFF00FF -gt -gB8 -mR8 -mLs
 grit css_backgroundbottom3.png -ftb -fh! -gTFF00FF -gt -gB8 -mR8 -mLs
+grit mode_smash.png -ftb -fh! -gTFF00FF -gt -gB8 -mR8 -mLs
+grit modebg.png -ftb -fh! -gTFF00FF -gt -gB8 -mR8 -mLs
+grit blank.png -ftb -fh! -gTFF00FF -gt -gB8 -mR8 -mLs
 
 for file in *.bin; do
     mv -- "$file" "${file%.bin}"
