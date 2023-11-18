@@ -1,11 +1,12 @@
-
+ 
 #include <maxmod9.h>
 #include <stdio.h>
 #include <time.h>
-
+  
 #include <nds.h>
 #include <filesystem.h>
-
+#include <fat.h>
+  
 #include <nf_lib.h>
 #include "soundbank.h"
 u32 startTime;
@@ -40,6 +41,30 @@ void changeRoom(int newRoom) {
 		255,	// volume
 		0,		// panning 
 		};
+		
+		
+		void borrarmenu(){
+			NF_Free3dSpriteGfx(0);
+		  
+		   NF_Free3dSpriteGfx(1);
+		
+            NF_Free3dSpriteGfx(2);
+           
+            NF_Free3dSpriteGfx(3);
+        
+            
+            NF_Free3dSpriteGfx(4);
+         
+           NF_Free3dSpriteGfx(5);
+          
+        
+          NF_Free3dSpriteGfx(6);
+        
+         NF_Free3dSpriteGfx(7);
+            NF_Free3dSpriteGfx(8);
+        
+           
+		}
 	
     switch (newRoom) { 
         case 0:
@@ -60,7 +85,7 @@ void changeRoom(int newRoom) {
             // Ejemplo:
          ;
            
-            NF_Free3dSpriteGfx(0);
+            
             NF_Delete3dSprite(0);
            
             NF_LoadTiledBg("bg/blank", "blank", 256, 256);
@@ -170,7 +195,7 @@ void changeRoom(int newRoom) {
             
         
            
-            
+           
             mmLoad( MOD_MENU1 );
             mmStart( MOD_MENU1, MM_PLAY_LOOP );
             NF_Free3dSpriteGfx(9);
@@ -182,12 +207,210 @@ void changeRoom(int newRoom) {
             
             break;
         // Agregar más casos para cada sala adicional
-        
+         case 3:
+         borrarmenu(); 
+         
+         	
+         	
+    NF_LoadSpriteGfx("sprite/hand", 0, 32, 32);
+    NF_LoadSpritePal("sprite/hand", 0);
+    NF_LoadSpriteGfx("sprite/handgrab", 1, 32, 32);
+    NF_LoadSpritePal("sprite/handgrab", 1);
+    NF_LoadSpriteGfx("sprite/token", 2, 32, 32);
+    NF_LoadSpritePal("sprite/token", 2);
+    NF_LoadSpriteGfx("sprite/css_mario", 3, 32, 32);
+    NF_LoadSpritePal("sprite/css_mario", 3);
+    NF_LoadSpriteGfx("sprite/css_tlink", 4, 32, 32);
+    NF_LoadSpritePal("sprite/css_tlink", 4);
+    NF_LoadSpriteGfx("sprite/css_samus", 5, 32, 32);
+    NF_LoadSpritePal("sprite/css_samus", 5);
+    NF_LoadSpriteGfx("sprite/css_fox",6, 32, 32);
+    NF_LoadSpritePal("sprite/css_fox",6);
+    NF_LoadSpriteGfx("sprite/css_kirby", 7, 32, 32);
+    NF_LoadSpritePal("sprite/css_kirby", 7);
+    NF_LoadSpriteGfx("sprite/css_pikachu",8, 32, 32);
+    NF_LoadSpritePal("sprite/css_pikachu",8);
+    NF_LoadSpriteGfx("sprite/css_falcon",9, 32, 32);
+    NF_LoadSpritePal("sprite/css_falcon",9);
+    NF_LoadSpriteGfx("sprite/css_luigi",10, 32, 32);
+    NF_LoadSpritePal("sprite/css_luigi",10);
+    NF_LoadSpriteGfx("sprite/css_ness",11, 32, 32);
+    NF_LoadSpritePal("sprite/css_ness",11);
+    NF_LoadSpriteGfx("sprite/css_pit",12, 32, 32);
+    NF_LoadSpritePal("sprite/css_pit",12);
+    NF_LoadSpriteGfx("sprite/css_falco",13, 32, 32);
+    NF_LoadSpritePal("sprite/css_falco",13);
+    NF_LoadSpriteGfx("sprite/css_mk",14, 32, 32);
+    NF_LoadSpritePal("sprite/css_mk",14);
+    NF_LoadSpriteGfx("sprite/css_mew2",15, 32, 32);
+    NF_LoadSpritePal("sprite/css_mew2",15);
+    NF_LoadSpriteGfx("sprite/css_gnw",16, 32, 32);
+    NF_LoadSpritePal("sprite/css_gnw",16);
+    NF_LoadSpriteGfx("sprite/css_wario",17, 32, 32);
+    NF_LoadSpritePal("sprite/css_wario",17);
+    NF_LoadSpriteGfx("sprite/css_lucas",18, 32, 32);
+    NF_LoadSpritePal("sprite/css_lucas",18);
+    NF_LoadSpriteGfx("sprite/css_lilmac",19, 32, 32);
+    NF_LoadSpritePal("sprite/css_lilmac",19);
+    NF_LoadSpriteGfx("sprite/css_snake",20, 32, 32);
+    NF_LoadSpritePal("sprite/css_snake",20);
+    NF_LoadSpriteGfx("sprite/css_marth",21, 32, 32);
+    NF_LoadSpritePal("sprite/css_marth",21);
+    NF_LoadSpriteGfx("sprite/css_puff",22, 32, 32);
+    NF_LoadSpritePal("sprite/css_puff",22);
+    NF_LoadSpriteGfx("sprite/css_diddy",23, 32, 32);
+    NF_LoadSpritePal("sprite/css_diddy",23);
+    NF_LoadSpriteGfx("sprite/css_villager",24, 32, 32);
+    NF_LoadSpritePal("sprite/css_villager",24);
+    NF_LoadSpriteGfx("sprite/css_megaman",25, 32, 32);
+    NF_LoadSpritePal("sprite/css_megaman",25);
+    NF_LoadSpriteGfx("sprite/css_sonic",26, 32, 32);
+    NF_LoadSpritePal("sprite/css_sonic",26);
+    NF_LoadSpriteGfx("sprite/css_pac",27, 32, 32);
+    NF_LoadSpritePal("sprite/css_pac",27);
+    NF_LoadSpriteGfx("sprite/css_sora",28, 32, 32);
+    NF_LoadSpritePal("sprite/css_sora",28);
+    NF_LoadSpriteGfx("sprite/css_neku",29, 32, 32);
+    NF_LoadSpritePal("sprite/css_neku",29);
+    NF_LoadSpriteGfx("sprite/css_wright",30, 32, 32);
+    NF_LoadSpritePal("sprite/css_wright",30);
+    NF_LoadSpriteGfx("sprite/css_random",31,32,32);
+    NF_LoadSpritePal("sprite/css_random",31);
+    
+    
+    
+    
+    
+    
+     NF_LoadTiledBg("bg/css_backgroundtop", "backgroundt", 256, 256);
+     NF_LoadTiledBg("bg/css_backgroundbottom", "backgroundb", 256, 256);
+     NF_LoadTiledBg("bg/css_backgroundbottom2", "backgroundb2", 256, 256);
+     NF_LoadTiledBg("bg/css_backgroundbottom3", "backgroundb3", 256, 256);
+    NF_CreateTiledBg(0, 3, "backgroundt");
+    NF_CreateTiledBg(1, 3, "backgroundb");
+    NF_CreateTiledBg(1, 2, "backgroundb2");
+    NF_CreateTiledBg(1, 1, "backgroundb3");
+    
+    NF_Vram3dSpriteGfx(0, 0,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(0, 0);
+    NF_Vram3dSpriteGfx(1, 1,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(1, 1);
+    NF_Vram3dSpriteGfx(2, 2,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(2, 2);
+    NF_Vram3dSpriteGfx(3, 3,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(3, 3);
+    NF_Vram3dSpriteGfx(4, 4,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(4, 4);
+    NF_Vram3dSpriteGfx(5, 5,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(5, 5);
+    NF_Vram3dSpriteGfx(6, 6,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(6, 6);
+    NF_Vram3dSpriteGfx(7, 7,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(7, 7);
+    NF_Vram3dSpriteGfx(8, 8,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(8, 8);
+    NF_Vram3dSpriteGfx(9, 9,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(9, 9 );
+    NF_Vram3dSpriteGfx(10, 10,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(10,10 );
+    NF_Vram3dSpriteGfx(11, 11,true); // Poniendo los sprites en la VRAM
+    NF_Vram3dSpritePal(11,11 );
+    NF_Vram3dSpriteGfx(12, 12,true); 
+    NF_Vram3dSpritePal(12,12 );
+    NF_Vram3dSpriteGfx(13, 13,true);
+    NF_Vram3dSpritePal(13,13 );
+    NF_Vram3dSpriteGfx(14,14,true); 
+    NF_Vram3dSpritePal(14,14 );
+    NF_Vram3dSpriteGfx(15,15,true);
+    NF_Vram3dSpritePal(15,15 );
+    NF_Vram3dSpriteGfx(16,16,true); 
+    NF_Vram3dSpritePal(16,16 );
+    NF_Vram3dSpriteGfx(17,17,true); 
+    NF_Vram3dSpritePal(17,17 );
+    NF_Vram3dSpriteGfx(18,18,true); 
+    NF_Vram3dSpritePal(18,18 );
+    NF_Vram3dSpriteGfx(19,19,true); 
+    NF_Vram3dSpritePal(19,19 );
+    NF_Vram3dSpriteGfx(20,20,true); 
+    NF_Vram3dSpritePal(20,20 );
+    NF_Vram3dSpriteGfx(21,21,true); 
+    NF_Vram3dSpritePal(21,21);
+    NF_Vram3dSpriteGfx(22,22,true); 
+    NF_Vram3dSpritePal(22,22);
+    NF_Vram3dSpriteGfx(23,23,true); 
+    NF_Vram3dSpritePal(23,23 );
+    NF_Vram3dSpriteGfx(24,24,true); 
+    NF_Vram3dSpritePal(24,24 );
+    NF_Vram3dSpriteGfx(25,25,true); 
+    NF_Vram3dSpritePal(25,25 );
+    NF_Vram3dSpriteGfx(26,26,true); 
+    NF_Vram3dSpritePal(26,26 );
+    NF_Vram3dSpriteGfx(27,27,true); 
+    NF_Vram3dSpritePal(27,27 );
+    NF_Vram3dSpriteGfx(28,28,true); 
+    NF_Vram3dSpritePal(28,28 );
+    NF_Vram3dSpriteGfx(29,29,true); 
+    NF_Vram3dSpritePal(29,29 );
+    NF_Vram3dSpriteGfx(30,30,true); 
+    NF_Vram3dSpritePal(30,30 );
+    NF_Vram3dSpriteGfx(31,31,true); 
+    NF_Vram3dSpritePal(31,31 );
+   
+   
+   
+   
+   
+    
+    
+     
+    
+    NF_Create3dSprite(0, 0, 0,144,17);
+    NF_Create3dSprite(2, 2, 2,100,150);
+    NF_Create3dSprite(3, 3, 3,20,17);
+    NF_Create3dSprite(4, 4, 4,51,17);
+    NF_Create3dSprite(5, 5, 5,82,17);
+    NF_Create3dSprite(6, 6, 6,113,17);
+    NF_Create3dSprite(7,7,7,144,17);
+    NF_Create3dSprite(8,8,8,175,17);
+    NF_Create3dSprite(9,9,9,206,17);
+    NF_Create3dSprite(10,10,10,20,48);
+    NF_Create3dSprite(11,11,11,51,48);
+    NF_Create3dSprite(12,12,12,82,48);
+    NF_Create3dSprite(13,13,13,113,48);
+    NF_Create3dSprite(14,14,14,144,48);
+    NF_Create3dSprite(15,15,15,175,48);
+    NF_Create3dSprite(16,16,16,206,48);
+    NF_Create3dSprite(17,17,17,35,79);
+    NF_Create3dSprite(18,18,18,66,79);
+    NF_Create3dSprite(19,19,19,97,79);
+    NF_Create3dSprite(20,20,20,128,79);
+	NF_Create3dSprite(21,21,21,159,79);	
+	NF_Create3dSprite(22,22,22,190,79);
+	NF_Create3dSprite(23,23,23,50,110);
+	NF_Create3dSprite(24,24,24,81,110);
+	NF_Create3dSprite(25,25,25,112,110);  //megaman
+	NF_Create3dSprite(26,26,26,143,110);
+	NF_Create3dSprite(27,27,27,174,110);
+	NF_Create3dSprite(28,28,28,65,141);
+	NF_Create3dSprite(29,29,29,96,141);
+	NF_Create3dSprite(30,30,30,127,141);  
+	NF_Create3dSprite(31,31,31,158,141);   
+    
+   
+    
+   
+         	
+         	 break;
+         	 
+         	 
+         	 
         default:
             // Sala no válida, maneja el caso según sea necesario
             break;
     }
     
+    
+   
     currentRoom = newRoom; // Actualizar la sala actual
    
      NF_Sort3dSprites();
@@ -230,7 +453,7 @@ int main(int argc, char **argv) {
     NF_LoadTextFont("fnt/fontout","outline", 256,256,0);
      NF_InitSpriteBuffers();     // Initialize storage buffers
      NF_Init3dSpriteSys();
-    char segundos[200];
+   // char segundos[200];
     s16 bgX = 0;
     s16 fadeX = 0;
     s16 fadeY = 0;
@@ -241,6 +464,9 @@ int main(int argc, char **argv) {
     s16 mbgsY2=4;
     s16 mh1=0;
     s16 mh2=0;
+    s16 handx = 0; 
+    s16 handy = 0; 
+    s16 hstate = 0;
     //main menu button hover variable
     
     //menu animations
@@ -253,6 +479,8 @@ int main(int argc, char **argv) {
     changeRoom(0);
      NF_Sort3dSprites();
     consoleClear();
+    
+  
    
     
 
@@ -305,7 +533,7 @@ int main(int argc, char **argv) {
             NF_Set3dSpriteFrame(7,btn_frame);
             
         } 
-           if (btn_anim >0.9 && btn_anid==3 && currentRoom>=2 )
+           if (btn_anim >1 && btn_anid==3 && currentRoom>=2 )
         {   
             btn_anim = 0;
             btn_frame ++;
@@ -381,7 +609,11 @@ int main(int argc, char **argv) {
 	
 	
     	   scanKeys(); 
-        // Ejemplo: Cambiar a la sala 1 cuando se presione un botón
+       
+        
+        
+        
+        
         if (keysDown() & KEY_UP) {
              mmEffectEx(&cursor); 
              NF_ClearTextLayer(1,0);
@@ -455,9 +687,15 @@ int main(int argc, char **argv) {
             titlestate=1;
             
             mmEffectEx(&start); 
-            
 
         }     
+        
+        	 if (keysDown() & KEY_A && currentRoom==2) {
+             changeRoom(currentRoom=3); 
+            
+            mmEffectEx(&start); 
+
+        }   
           	 if (titlestate==1 && currentRoom==1) {
             NF_Scale3dSprite(9,fadeX*30,fadeY*30);
 

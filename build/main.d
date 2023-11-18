@@ -1,4 +1,4 @@
-main.o: C:/devkitpro/nflib/ssbds/source/main.c \
+main.o: C:/devkitpro/nflib/ssbstrike/main.c \
  C:/devkitPro/libnds/include/maxmod9.h \
  C:/devkitPro/libnds/include/mm_types.h C:/devkitPro/libnds/include/nds.h \
  C:/devkitPro/libnds/include/nds/libversion.h \
@@ -61,6 +61,9 @@ main.o: C:/devkitpro/nflib/ssbds/source/main.c \
  C:/devkitPro/libnds/include/nds/arm9/videoGL.h \
  C:/devkitPro/libnds/include/nds/arm9/nand.h \
  C:/devkitPro/libnds/include/filesystem.h \
+ C:/devkitPro/libnds/include/fat.h \
+ C:/devkitPro/libnds/include/libfatversion.h \
+ C:/devkitPro/libnds/include/nds/disc_io.h \
  C:/devkitPro/nflib/include/nf_lib.h C:/devkitPro/nflib/include/nf_2d.h \
  C:/devkitPro/nflib/include/nf_sprite256.h \
  C:/devkitPro/nflib/include/nf_3d.h \
@@ -77,7 +80,7 @@ main.o: C:/devkitpro/nflib/ssbds/source/main.c \
  C:/devkitPro/nflib/include/nf_text16.h \
  C:/devkitPro/nflib/include/nf_text.h \
  C:/devkitPro/nflib/include/nf_tiledbg.h \
- C:/devkitpro/nflib/ssbds/build/soundbank.h
+ C:/devkitpro/nflib/ssbstrike/build/soundbank.h
 C:/devkitPro/libnds/include/maxmod9.h:
 C:/devkitPro/libnds/include/mm_types.h:
 C:/devkitPro/libnds/include/nds.h:
@@ -141,6 +144,9 @@ C:/devkitPro/libnds/include/nds/arm9/video.h:
 C:/devkitPro/libnds/include/nds/arm9/videoGL.h:
 C:/devkitPro/libnds/include/nds/arm9/nand.h:
 C:/devkitPro/libnds/include/filesystem.h:
+C:/devkitPro/libnds/include/fat.h:
+C:/devkitPro/libnds/include/libfatversion.h:
+C:/devkitPro/libnds/include/nds/disc_io.h:
 C:/devkitPro/nflib/include/nf_lib.h:
 C:/devkitPro/nflib/include/nf_2d.h:
 C:/devkitPro/nflib/include/nf_sprite256.h:
@@ -158,4 +164,4 @@ C:/devkitPro/nflib/include/nf_sprite3d.h:
 C:/devkitPro/nflib/include/nf_text16.h:
 C:/devkitPro/nflib/include/nf_text.h:
 C:/devkitPro/nflib/include/nf_tiledbg.h:
-C:/devkitpro/nflib/ssbds/build/soundbank.h:
+C:/devkitpro/nflib/ssbstrike/build/soundbank.h:
